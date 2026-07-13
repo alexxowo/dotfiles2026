@@ -45,13 +45,13 @@ Este archivo contiene la documentación estructural y de configuración de tu en
 1. **`catppuccin/nvim`** ([catppuccin.lua](file:///home/alexandre/.config/nvim/lua/plugins/catppuccin.lua))
    * **Tema**: Catppuccin Mocha. Diseñado para alta legibilidad y confort visual.
 2. **`neovim/nvim-lspconfig` & `williamboman/mason.nvim`** ([lsp.lua](file:///home/alexandre/.config/nvim/lua/plugins/lsp.lua))
-   * **LSP**: Configuración de lenguajes. Soporta PHP (`intelephense`), JS/TS (`ts_ls`), CSS (`cssls`), Tailwind (`tailwindcss`), Lua (`lua_ls`) y C# (`omnisharp`).
+   * **LSP**: Configuración de lenguajes. Soporta PHP (`intelephense`), JS/TS (`ts_ls`), CSS (`cssls`), Tailwind (`tailwindcss`), Lua (`lua_ls`), C# (`omnisharp`) y Astro (`astro`).
 3. **`stevearc/conform.nvim`** ([formatting.lua](file:///home/alexandre/.config/nvim/lua/plugins/formatting.lua))
-   * **Formateo**: Ejecuta `pint` (PHP), `prettier` (JS, TS, React, HTML, CSS), `blade-formatter` (Blade) y `csharpier` (C#) de forma automática al guardar.
+   * **Formateo**: Ejecuta `pint` (PHP), `prettier` (JS, TS, React, Astro, HTML, CSS), `blade-formatter` (Blade) y `csharpier` (C#) de forma automática al guardar.
 4. **`akinsho/bufferline.nvim` & `famiu/bufdelete.nvim`** ([bufferline.lua](file:///home/alexandre/.config/nvim/lua/plugins/bufferline.lua))
    * **Buffers**: Barra de pestañas en la parte superior. Permite cerrar buffers sin descuadrar la interfaz visual.
 5. **`nvim-treesitter/nvim-treesitter`** ([treesitter.lua](file:///home/alexandre/.config/nvim/lua/plugins/treesitter.lua))
-   * **Parser**: Resaltado sintáctico premium para PHP, Blade, JS, TS, TSX, C#, HTML, CSS, JSON, Markdown, etc.
+   * **Parser**: Resaltado sintáctico premium para PHP, Blade, JS, TS, TSX, C#, Astro, HTML, CSS, JSON, Markdown, etc.
 6. **`adalessa/laravel.nvim`** ([laravel.nvim.lua](file:///home/alexandre/.config/nvim/lua/plugins/laravel.nvim.lua))
    * **Laravel**: Herramientas integradas para Laravel (Artisan picker, buscador de rutas, generación de código).
 7. **`nvim-telescope/telescope.nvim`** ([telescope.lua](file:///home/alexandre/.config/nvim/lua/plugins/telescope.lua))

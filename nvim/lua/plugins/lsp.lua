@@ -15,6 +15,7 @@ return {
         "cssls",        -- CSS
         "lua_ls",       -- Lua
         "omnisharp",    -- C#
+        "astro",        -- Astro
       },
     },
   },
@@ -38,6 +39,7 @@ return {
         "cssls",
         "lua_ls",
         "omnisharp",
+        "astro",
       }
 
       -- 1. Modificar y aplicar capacidades personalizadas usando la API nativa
@@ -71,7 +73,7 @@ return {
       })
 
       -- Aplicar capacidades por defecto para el resto de los servidores
-      for _, server in ipairs({ "ts_ls", "tailwindcss", "html", "cssls", "omnisharp" }) do
+      for _, server in ipairs({ "ts_ls", "tailwindcss", "html", "cssls", "omnisharp", "astro" }) do
         vim.lsp.config(server, {
           capabilities = capabilities,
         })

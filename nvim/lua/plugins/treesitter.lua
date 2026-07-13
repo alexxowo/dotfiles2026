@@ -15,6 +15,7 @@ return {
       "php",
       "c_sharp",
       "blade",
+      "astro",
       "html",
       "css",
       "json",
