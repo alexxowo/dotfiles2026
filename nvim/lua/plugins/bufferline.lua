@@ -9,13 +9,18 @@ return {
     require("bufferline").setup({
       options = {
         mode = "buffers",
-        show_buffer_close_icons = false,
+        show_buffer_close_icons = true,
         show_buffer_default_colors = true,
-        show_close_icon = false,
+        show_close_icon = true,
         separator_style = "thick",
         diagnostics = "nvim_lsp",
         always_show_bufferline = true,
         sort_by = "id",
+        hover = {
+          enabled = true,
+          delay = 100,
+          reveal = { "close" },
+        },
         close_command = function(bufnr)
           require("bufdelete").bufdelete(bufnr, false)
         end,
