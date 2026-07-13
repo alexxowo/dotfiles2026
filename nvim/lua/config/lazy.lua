@@ -57,6 +57,20 @@ require("core.lsp")
 -- Set colorscheme (Puedes alternar entre "tokyonight", "nordic" o "catppuccin" aquí)
 vim.cmd("colorscheme tokyonight")
 
+-- Forzar transparencia en Neo-tree y otros componentes
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    local groups = {
+      "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeWinSeparator", "NeoTreeEndOfBuffer",
+      "SignColumn", "EndOfBuffer",
+    }
+    for _, group in ipairs(groups) do
+      vim.api.nvim_set_hl(0, group, { bg = "none", ctermbg = "none" })
+    end
+  end,
+})
+
 -- Set color theme & line options
 vim.opt.number = true
 vim.opt.relativenumber = true
