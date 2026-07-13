@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+
+# Use the current directory name as the session name, cleaning up dots
+SESSION_NAME=$(basename "$PWD" | tr '.' '_')
+
+# Check if the tmux session already exists
+tmux has-session -t "$SESSION_NAME" 2>/dev/null
+
+if [ $? -ne 0 ]; then
+    # 1. Create a new detached session and start Neovim in the first pane
+    tmux new-session -d -s "$SESSION_NAME" -n "workspace" 'nvim'
+
+    # 2. Split vertically to create the bottom pane for the terminal (30% height)
+    tmux split-window -v -p 30
+
+    # 3. Select the top pane (Neovim)
+    tmux select-pane -t 1
+
+    # 4. Split the top pane horizontally to place OpenCode on the right (35% width)
+    tmux split-window -h -p 35 'opencode'
+
+    # 5. Refocus the top-left pane so your cursor starts inside Neovim
+    tmux select-pane -t 1
+
+    # 6. Create a second window named "git" running lazygit in the current directory
+    tmux new-window -t "$SESSION_NAME" -n "git" 'lazygit'
+fi
+
+# Attach to the created session
+tmux attach-session -t "$SESSION_NAME"
