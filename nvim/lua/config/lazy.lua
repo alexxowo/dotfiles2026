@@ -83,6 +83,13 @@ vim.opt.updatetime = 300 -- Reducir tiempo de respuesta del editor a 300ms
 -- Monitor de archivos en tiempo real (File Watcher) para refresco instantáneo
 local function watch_file(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
+  
+  -- Saltar buffers especiales (Telescope, terminales, etc.)
+  local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
+  if buftype ~= "" then
+    return
+  end
+
   local filepath = vim.api.nvim_buf_get_name(bufnr)
   if filepath == "" or not vim.loop.fs_stat(filepath) then
     return
@@ -123,9 +130,13 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
 -- Respaldo de seguridad en navegación
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   pattern = "*",
-  callback = function()
-    if vim.fn.getcmdwintype() == "" then
-      vim.cmd("checktime")
+  callback = function(args)
+    local bufnr = args.buf
+    if vim.api.nvim_buf_is_valid(bufnr) then
+      local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
+      if buftype == "" and vim.fn.getcmdwintype() == "" then
+        vim.cmd("checktime")
+      end
     end
   end,
 })
