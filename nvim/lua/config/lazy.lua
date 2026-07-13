@@ -81,6 +81,8 @@ vim.opt.autoread = true
 vim.opt.updatetime = 300 -- Reducir tiempo de respuesta del editor a 300ms
 
 -- Monitor de archivos en tiempo real (File Watcher) para refresco instantáneo
+local active_watchers = {}
+
 local function watch_file(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
   
@@ -96,18 +98,18 @@ local function watch_file(bufnr)
   end
 
   -- Evitar duplicados
-  if vim.b[bufnr].file_watcher then
-    vim.b[bufnr].file_watcher:stop()
+  if active_watchers[bufnr] then
+    active_watchers[bufnr]:stop()
   end
 
   local w = vim.loop.new_fs_event()
-  vim.b[bufnr].file_watcher = w
+  active_watchers[bufnr] = w
 
   w:start(filepath, {}, vim.schedule_wrap(function(err, fname, events)
     if err then
-      if vim.b[bufnr].file_watcher then
-        vim.b[bufnr].file_watcher:stop()
-        vim.b[bufnr].file_watcher = nil
+      if active_watchers[bufnr] then
+        active_watchers[bufnr]:stop()
+        active_watchers[bufnr] = nil
       end
       return
     end
@@ -118,6 +120,18 @@ local function watch_file(bufnr)
     end
   end))
 end
+
+-- Detener monitores cuando los buffers son destruidos
+vim.api.nvim_create_autocmd("BufWipeout", {
+  pattern = "*",
+  callback = function(args)
+    local bufnr = args.buf
+    if active_watchers[bufnr] then
+      active_watchers[bufnr]:stop()
+      active_watchers[bufnr] = nil
+    end
+  end,
+})
 
 -- Iniciar el monitor al entrar a un buffer o guardarlo
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
