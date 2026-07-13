@@ -91,6 +91,7 @@ El prefijo de Neovim (`<leader>`) está configurado como la tecla **`Espacio`**.
 
 ### 📋 Copiar Rutas (Para pasar a AGY / OpenCode)
 * **`<leader>cr`** : Copiar **ruta relativa** del archivo actual (ej. `resources/views/welcome.blade.php`) al portapapeles.
+* **`<leader>crr`** : Copiar **ruta relativa con línea** actual (ej. `resources/views/welcome.blade.php#L45`) al portapapeles.
 * **`<leader>cp`** : Copiar **ruta absoluta** completa del archivo actual al portapapeles.
 
 ### 🌿 Git & Monitoreo de Cambios (AGY / OpenCode / Propios)
