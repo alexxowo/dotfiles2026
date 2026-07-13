@@ -46,7 +46,7 @@ require("lazy").setup({
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "nordic" } },
+  install = { colorscheme = { "tokyonight" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
@@ -54,8 +54,8 @@ require("lazy").setup({
 require("core.keymaps")
 require("core.lsp")
 
--- Set colorscheme (Puedes cambiar "nordic" por "catppuccin" aquí para alternar)
-vim.cmd("colorscheme nordic")
+-- Set colorscheme (Puedes alternar entre "tokyonight", "nordic" o "catppuccin" aquí)
+vim.cmd("colorscheme tokyonight")
 
 -- Set color theme & line options
 vim.opt.number = true
