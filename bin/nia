@@ -24,6 +24,9 @@ if [ $? -ne 0 ]; then
 
     # 6. Create a second window named "git" running lazygit in the current directory
     tmux new-window -t "$SESSION_NAME" -n "git" 'lazygit'
+
+    # 7. Refocus the first window (workspace)
+    tmux select-window -t "$SESSION_NAME:workspace"
 fi
 
 # Attach to the created session
