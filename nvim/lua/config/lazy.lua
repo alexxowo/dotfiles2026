@@ -64,10 +64,50 @@ vim.opt.cursorline = true
 
 -- Autoread: recargar automáticamente archivos modificados externamente (por AGY/OpenCode)
 vim.opt.autoread = true
-vim.opt.updatetime = 1000 -- Reducir tiempo de espera de inactividad a 1 segundo (por defecto es 4s)
+vim.opt.updatetime = 300 -- Reducir tiempo de respuesta del editor a 300ms
 
--- Comprobar si el archivo cambió en disco en eventos de navegación y pausas
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+-- Monitor de archivos en tiempo real (File Watcher) para refresco instantáneo
+local function watch_file(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  local filepath = vim.api.nvim_buf_get_name(bufnr)
+  if filepath == "" or not vim.loop.fs_stat(filepath) then
+    return
+  end
+
+  -- Evitar duplicados
+  if vim.b[bufnr].file_watcher then
+    vim.b[bufnr].file_watcher:stop()
+  end
+
+  local w = vim.loop.new_fs_event()
+  vim.b[bufnr].file_watcher = w
+
+  w:start(filepath, {}, vim.schedule_wrap(function(err, fname, events)
+    if err then
+      if vim.b[bufnr].file_watcher then
+        vim.b[bufnr].file_watcher:stop()
+        vim.b[bufnr].file_watcher = nil
+      end
+      return
+    end
+
+    -- Recargar sólo si el buffer es válido y no tiene cambios locales sin guardar
+    if vim.api.nvim_buf_is_valid(bufnr) and not vim.api.nvim_get_option_value("modified", { buf = bufnr }) then
+      vim.cmd("checktime " .. bufnr)
+    end
+  end))
+end
+
+-- Iniciar el monitor al entrar a un buffer o guardarlo
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+  pattern = "*",
+  callback = function(args)
+    watch_file(args.buf)
+  end,
+})
+
+-- Respaldo de seguridad en navegación
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   pattern = "*",
   callback = function()
     if vim.fn.getcmdwintype() == "" then
