@@ -9,7 +9,7 @@ return {
       bold_keywords = true,
       italic_comments = true,
       transparent = {
-        bg = false,
+        bg = true,
       },
     })
   end,
