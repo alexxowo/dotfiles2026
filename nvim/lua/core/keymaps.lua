@@ -25,6 +25,18 @@ map('n', '<leader>crr', function()
   vim.notify('Ruta con línea copiada: ' .. path_with_line)
 end, { desc = 'Copiar ruta relativa con número de línea' })
 
+map('v', '<leader>crr', function()
+  local r_start = vim.fn.line("v")
+  local r_end = vim.fn.line(".")
+  local start_line = math.min(r_start, r_end)
+  local end_line = math.max(r_start, r_end)
+  local rel_path = vim.fn.expand('%')
+  local path_with_line = rel_path .. '#L' .. start_line .. '-L' .. end_line
+  vim.fn.setreg('+', path_with_line)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+  vim.notify('Ruta con rango copiada: ' .. path_with_line)
+end, { desc = 'Copiar ruta relativa con rango de líneas' })
+
 map('n', '<leader>cp', function()
   local abs_path = vim.fn.expand('%:p')
   vim.fn.setreg('+', abs_path)
