@@ -46,13 +46,16 @@ require("lazy").setup({
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { "nordic" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
 
 require("core.keymaps")
 require("core.lsp")
+
+-- Set colorscheme (Puedes cambiar "nordic" por "catppuccin" aquí para alternar)
+vim.cmd("colorscheme nordic")
 
 -- Set color theme & line options
 vim.opt.number = true
