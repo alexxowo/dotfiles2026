@@ -61,6 +61,7 @@ vim.opt.cursorline = true
 
 -- Autoread: recargar automáticamente archivos modificados externamente (por AGY/OpenCode)
 vim.opt.autoread = true
+vim.opt.updatetime = 1000 -- Reducir tiempo de espera de inactividad a 1 segundo (por defecto es 4s)
 
 -- Comprobar si el archivo cambió en disco en eventos de navegación y pausas
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
