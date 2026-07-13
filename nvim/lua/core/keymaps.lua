@@ -17,6 +17,14 @@ map('n', '<leader>cr', function()
   vim.notify('Ruta relativa copiada: ' .. rel_path)
 end, { desc = 'Copiar ruta relativa' })
 
+map('n', '<leader>crr', function()
+  local rel_path = vim.fn.expand('%')
+  local line_num = vim.fn.line('.')
+  local path_with_line = rel_path .. '#L' .. line_num
+  vim.fn.setreg('+', path_with_line)
+  vim.notify('Ruta con línea copiada: ' .. path_with_line)
+end, { desc = 'Copiar ruta relativa con número de línea' })
+
 map('n', '<leader>cp', function()
   local abs_path = vim.fn.expand('%:p')
   vim.fn.setreg('+', abs_path)
