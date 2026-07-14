@@ -68,6 +68,14 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     for _, group in ipairs(groups) do
       vim.api.nvim_set_hl(0, group, { bg = "none", ctermbg = "none" })
     end
+
+    -- Hacer transparentes todos los grupos de BufferLine para respetar el fondo
+    for _, group in ipairs(vim.fn.getcompletion("BufferLine", "highlight")) do
+      local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+      hl.bg = nil
+      hl.ctermbg = nil
+      vim.api.nvim_set_hl(0, group, hl)
+    end
   end,
 })
 
