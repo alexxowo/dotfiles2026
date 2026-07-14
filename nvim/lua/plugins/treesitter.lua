@@ -16,6 +16,7 @@ return {
       "c_sharp",
       "blade",
       "astro",
+      "dart",
       "html",
       "css",
       "json",
