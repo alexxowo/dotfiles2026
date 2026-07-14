@@ -2,6 +2,10 @@
 
 Este archivo contiene la documentación estructural y de configuración de tu entorno de desarrollo personalizado de Neovim.
 
+> [!IMPORTANT]
+> **Repositorio de Dotfiles**: `/home/alexandre/.dotfiles`
+> Cada vez que realices cambios en los archivos de configuración (`~/.config/nvim/` o `~/.tmux.conf`), debes preguntar explícitamente al usuario si desea sincronizar estos cambios copiándolos hacia la carpeta `.dotfiles`.
+
 ---
 
 ## 📂 Estructura de Directorios y Archivos
@@ -77,3 +81,19 @@ En [lazy.lua](file:///home/alexandre/.config/nvim/lua/config/lazy.lua) se config
 * `vim.opt.cursorline = true` (Resaltar visualmente la línea actual bajo el cursor)
 * Registro del tipo de archivo `.blade.php` para ser mapeado como sintaxis `blade`.
 * `vim.opt.autoread = true` con autocomandos `checktime` para recargar automáticamente los cambios hechos en el disco por herramientas externas como AGY y OpenCode.
+
+---
+
+## ⌨️ Atajos de Teclado & Comportamiento Personalizado
+
+### Copia de Rutas de Archivos (en [keymaps.lua](file:///home/alexandre/.config/nvim/lua/core/keymaps.lua))
+* `<leader>cr` (Modo Normal): Copia la ruta relativa del archivo actual desde la raíz del proyecto al portapapeles del sistema (usando `expand('%:.')`).
+* `<leader>crr` (Modo Normal): Copia la ruta relativa del archivo actual junto con el número de línea actual (ej. `ruta/archivo.php#L22`).
+* `<leader>crr` (Modo Visual): Copia la ruta relativa del archivo actual junto con el rango de líneas seleccionado (ej. `ruta/archivo.php#L22-L35`).
+* `<leader>cp` (Modo Normal): Copia la ruta absoluta completa del archivo actual.
+
+### Comportamiento del LSP (en [lsp.lua](file:///home/alexandre/.config/nvim/lua/core/lsp.lua))
+* `gd`: Ir a la definición (`vim.lsp.buf.definition`). **Integración con Laravel**: En archivos PHP y Blade, si el cursor está sobre un recurso de Laravel (como un nombre de vista `view('mi.vista')` o ruta `route('mi.ruta')`), `gd` abrirá directamente el archivo de la vista o el controlador correspondiente, cayendo en la definición estándar del LSP en cualquier otro caso.
+* `gI`: Ir a la implementación (`vim.lsp.buf.implementation`). **Mecanismo de fallback activo**: si el servidor LSP de la sesión (como Intelephense gratuito) no soporta la consulta de implementación, el comando automáticamente ejecutará la búsqueda de definición (`gd`), evitando errores en buffers donde no esté soportado.
+* `gr`: Ver referencias del símbolo.
+

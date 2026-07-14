@@ -81,8 +81,8 @@ El prefijo de Neovim (`<leader>`) está configurado como la tecla **`Espacio`**.
 * `<leader>gv` : Ir directamente a la vista o recurso Laravel bajo el cursor.
 
 ### ⚙️ LSP (Acciones de Código)
-* `gd` : Ir a la definición de la función/clase bajo el cursor.
-* `gI` : Ir a la implementación.
+* `gd` : Ir a la definición de la función/clase. **Integración inteligente con Laravel**: En archivos PHP y Blade, si estás sobre un recurso de Laravel (como una vista `view('mi.vista')` o ruta `route('mi.ruta')`), te llevará directamente al archivo de la vista o al controlador/ruta correspondiente.
+* `gI` : Ir a la implementación. **Mecanismo de fallback activo**: si el servidor (como Intelephense gratuito) no soporta la consulta de implementación, ejecutará automáticamente la búsqueda de definición (`gd`) para evitar el error.
 * `gr` : Ver todas las referencias del símbolo.
 * `K` : Mostrar documentación del elemento bajo el cursor.
 * `<leader>rn` : Renombrar variable/función en todo el proyecto.

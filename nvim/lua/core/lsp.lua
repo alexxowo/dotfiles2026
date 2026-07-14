@@ -7,8 +7,33 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
     end
 
-    map("gd", vim.lsp.buf.definition, "Ir a la definición")
-    map("gI", vim.lsp.buf.implementation, "Ir a la implementación")
+    map("gd", function()
+      local has_laravel, laravel = pcall(function()
+        return _G.Laravel or require("laravel")
+      end)
+      if has_laravel and laravel and (vim.bo[event.buf].filetype == "php" or vim.bo[event.buf].filetype == "blade") then
+        if laravel.app("gf").cursorOnResource() then
+          laravel.commands.run("gf")
+          return
+        end
+      end
+      vim.lsp.buf.definition()
+    end, "Ir a la definición (o recurso Laravel)")
+    map("gI", function()
+      local clients = vim.lsp.get_clients({ bufnr = event.buf })
+      local supports_impl = false
+      for _, client in ipairs(clients) do
+        if client.supports_method("textDocument/implementation") then
+          supports_impl = true
+          break
+        end
+      end
+      if supports_impl then
+        vim.lsp.buf.implementation()
+      else
+        vim.lsp.buf.definition()
+      end
+    end, "Ir a la implementación (o definición)")
     map("gr", vim.lsp.buf.references, "Ver referencias")
     map("K", vim.lsp.buf.hover, "Ver documentación / información del tipo")
     map("<leader>rn", vim.lsp.buf.rename, "Renombrar símbolo")

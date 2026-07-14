@@ -35,7 +35,13 @@ return {
         operators = {},
       },
       color_overrides = {},
-      custom_highlights = {},
+      custom_highlights = function(colors)
+        return {
+          NeoTreeNormal = { bg = "none" },
+          NeoTreeNormalNC = { bg = "none" },
+          NeoTreeEndOfBuffer = { bg = "none" },
+        }
+      end,
       integrations = {
         cmp = true,
         gitsigns = true,

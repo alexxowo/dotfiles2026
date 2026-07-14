@@ -6,8 +6,8 @@ return {
     style = "storm", -- storm, night, moon, day
     transparent = true,
     styles = {
-      sidebars = "dark",
-      floats = "dark",
+      sidebars = "transparent",
+      floats = "transparent",
     },
   },
 }
