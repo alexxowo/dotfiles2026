@@ -42,6 +42,9 @@ return {
   },
   opts = {
     features = {
+      composer_info = {
+        enable = false,
+      },
       pickers = {
         provider = "telescope", -- telescope | fzf-lua | snacks | ui.select
       },
