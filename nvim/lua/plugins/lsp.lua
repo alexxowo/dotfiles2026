@@ -16,6 +16,10 @@ return {
         "lua_ls",       -- Lua
         "omnisharp",    -- C#
         "astro",        -- Astro
+        "jdtls",        -- Java
+        "spring-boot-ls", -- Spring Boot
+        "dockerls",     -- Dockerfile
+        "docker_compose_language_service", -- Docker Compose
       },
     },
   },
@@ -40,6 +44,10 @@ return {
         "lua_ls",
         "omnisharp",
         "astro",
+        "jdtls",
+        "spring_boot",
+        "dockerls",
+        "docker_compose_language_service",
       }
 
       -- 1. Modificar y aplicar capacidades personalizadas usando la API nativa
@@ -73,7 +81,18 @@ return {
       })
 
       -- Aplicar capacidades por defecto para el resto de los servidores
-      for _, server in ipairs({ "ts_ls", "tailwindcss", "html", "cssls", "omnisharp", "astro" }) do
+      for _, server in ipairs({
+        "ts_ls",
+        "tailwindcss",
+        "html",
+        "cssls",
+        "omnisharp",
+        "astro",
+        "jdtls",
+        "spring_boot",
+        "dockerls",
+        "docker_compose_language_service",
+      }) do
         vim.lsp.config(server, {
           capabilities = capabilities,
         })

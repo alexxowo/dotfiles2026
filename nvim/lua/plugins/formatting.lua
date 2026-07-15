@@ -28,6 +28,8 @@ return {
       blade = { "blade-formatter" },
       cs = { "csharpier" },
       astro = { "prettierd", "prettier", stop_after_first = true },
+      java = { "google-java-format" },
+      xml = { "prettier" },
     },
     format_on_save = {
       timeout_ms = 1000, -- 1 segundo es más seguro para proyectos grandes

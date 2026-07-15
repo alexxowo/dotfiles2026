@@ -24,6 +24,9 @@ return {
       "yaml",
       "markdown",
       "markdown_inline",
+      "java",
+      "dockerfile",
+      "xml",
     },
     highlight = {
       enable = true,
