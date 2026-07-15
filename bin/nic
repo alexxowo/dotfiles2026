@@ -3,6 +3,9 @@
 # Use the current directory name as the session name, cleaning up dots
 SESSION_NAME=$(basename "$PWD" | tr '.' '_')
 
+# Set terminal window title (Warp, etc.)
+printf "\033]0;%s\007" "$SESSION_NAME"
+
 # Check if the tmux session already exists
 tmux has-session -t "$SESSION_NAME" 2>/dev/null
 
